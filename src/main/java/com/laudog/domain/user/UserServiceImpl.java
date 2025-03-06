@@ -35,7 +35,8 @@ public class UserServiceImpl implements UserService {
                 .email(registration.getEmail())
                 .roles(registration.getRoles())
                 .password(passwordEncoder.encode(registration.getPassword()))
-                .build())).map(this::convertEntityToDto);
+                .build()))
+                .map(this::convertEntityToDto);
     }
 
     @Override

@@ -1,11 +1,11 @@
 package com.laudog.security;
 
-import com.clevercloud.biscuit.crypto.KeyPair;
-import com.clevercloud.biscuit.error.Error;
-import com.clevercloud.biscuit.token.Biscuit;
-import com.clevercloud.biscuit.token.UnverifiedBiscuit;
-import com.clevercloud.biscuit.token.builder.Fact;
-import com.clevercloud.biscuit.token.builder.Term;
+import org.biscuitsec.biscuit.crypto.KeyPair;
+import org.biscuitsec.biscuit.error.Error;
+import org.biscuitsec.biscuit.token.Biscuit;
+import org.biscuitsec.biscuit.token.UnverifiedBiscuit;
+import org.biscuitsec.biscuit.token.builder.Fact;
+import org.biscuitsec.biscuit.token.builder.Term;
 import com.laudog.config.BiscuitConfig;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
@@ -57,7 +57,7 @@ public class BiscuitTokenProvider {
 
     private String craftAuthNBiscuit(String username, Collection<String> facts) {
         try {
-            com.clevercloud.biscuit.token.builder.Biscuit b = Biscuit.builder(this.keyPair)
+            org.biscuitsec.biscuit.token.builder.Biscuit b = Biscuit.builder(this.keyPair)
                 .add_authority_fact(createFact("user", username))
                 .add_authority_check(createFactCheck("user", username));
             if (!facts.isEmpty()) {
@@ -82,7 +82,7 @@ public class BiscuitTokenProvider {
     public Authentication getAuthentication(String token) {
         try {
             Biscuit b = getVerifiedToken(token);
-b.revocation_identifiers()
+
             Set<Fact> userFact = b.authorizer()
                 .query("user($user) <- user($user)");
             Term.Str principal = (Term.Str) userFact.stream().findFirst()

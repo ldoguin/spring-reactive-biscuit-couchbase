@@ -36,7 +36,6 @@ public class UserDocument extends BaseDocument {
     @Field
     private List<String> roles = new ArrayList<>();
 
-    @Builder
     public UserDocument(String username, String email, String password, String bio, String image, List<String> roles) {
         this.username = username;
         this.email = email;

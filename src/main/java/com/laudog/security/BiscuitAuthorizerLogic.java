@@ -1,9 +1,9 @@
 package com.laudog.security;
 
-import com.clevercloud.biscuit.error.Error;
-import com.clevercloud.biscuit.token.Authorizer;
-import com.clevercloud.biscuit.token.Biscuit;
 import lombok.RequiredArgsConstructor;
+
+import org.biscuitsec.biscuit.token.Authorizer;
+import org.biscuitsec.biscuit.token.Biscuit;
 import org.springframework.security.authorization.AuthorizationDecision;
 import org.springframework.security.authorization.ReactiveAuthorizationManager;
 import org.springframework.security.core.Authentication;
@@ -38,7 +38,7 @@ public class BiscuitAuthorizerLogic  implements ReactiveAuthorizationManager<Aut
                 authorizer.add_check(rule);
             }
             authorizer.allow().authorize();
-        } catch (Error.FailedLogic e) {
+        } catch (org.biscuitsec.biscuit.error.Error e) {
             return Mono.just(new AuthorizationDecision(false));
         }
         catch (NoSuchAlgorithmException | SignatureException | InvalidKeyException | Error e) {

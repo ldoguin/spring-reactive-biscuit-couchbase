@@ -11,13 +11,13 @@ import java.util.List;
 import java.util.Set;
 
 @SpringBootTest
-public class TestUserService {
+public class TestUserService extends AbstractTest {
 
     @Autowired
     UserService userService;
 
     @Test
-    public void testUserCreationAndUpdate() {
+    public void testUserCreationAndUpdate() throws InterruptedException {
         UserDto.Registration reg = UserDto.Registration.builder()
             .username("lauren4t")
             .password("fouf")
@@ -26,6 +26,7 @@ public class TestUserService {
             .build();
         UserDto u = userService.registration(reg).block();
 
+        Thread.sleep(5000);
         AuthUserDetails details = AuthUserDetails.builder().userDto(u).build();
         UserDto.Update update = UserDto.Update.builder()
             .username("lauren4t")
